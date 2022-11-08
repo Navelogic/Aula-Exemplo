@@ -141,7 +141,8 @@ if (mysqli_num_rows($resultado) > 0) {
                 <td><?php echo $row["nome"]; ?></td>
                 <td><?php echo $row["email"]; ?></td>
                 <?php
-                // Verifica o perfil do usuario 0 Aluno, 1 Professor e 2 Coordenador e sera passado para variavel $p o valor correspondente
+                /* Verifica o perfil do usuario 0 Aluno, 1 Professor e 2 Coordenador e sera passado para variavel $p o valor correspondente
+                Foi resolvido com a linha abaixo
                 switch ($row["perfil"]) {
                     case 2:
                         $p = "Coordenador";
@@ -149,17 +150,17 @@ if (mysqli_num_rows($resultado) > 0) {
                     case 1:
                         $p = "Professor";
                         break;                    
-                }
+                }*/
                 ?>
-
-                <td><?php echo $p; ?></td>
-                <td>
+                <!-- echo com if condição operador ? RespostaVerdadeira:RespostaFalsa -->
+                <td><?php echo $row["perfil"]==2?'Cordenador':'Professor'; ?></td>
+                
                 <td>
                     <!-- Passa o id do usuário para a função javascript excluir-->
-                    <a href="#" onclick="excluir(<?php echo $row["id_usuario"]; ?>)" >
+                    <a href="#" onclick="excluir(<?php echo $row["id_user"]; ?>)" >
                         <button style="background-color: red;" >Excluir</button></a>
 
-                        <a href="#" onclick="alterar(<?php echo $row["id_usuario"]; ?>)" >
+                        <a href="#" onclick="alterar(<?php echo $row["id_user"]; ?>)" >
                         <button >Alterar</button></a>
                 </td>
             </tr>
@@ -191,16 +192,15 @@ if (mysqli_num_rows($res_alunos) > 0) {
                 <td><?php echo $row_alunos["email"]; ?></td>
                 
 
-                <td>Aluno</td>
-                <td>
+                <td>Aluno</td>                
                 <td>
                     <!-- Passa o id do usuário para a função javascript excluir-->
-                    <a href="#" onclick="excluir_aluno(<?php echo $row_alunos["id"]; ?>)" >
+                    <a href="#" onclick="excluir_aluno(<?php echo $row_alunos["id_aluno"]; ?>)" >
                         <button style="background-color: red;" >Excluir</button></a>
 
-                        <a href="#" onclick="alterar_aluno(<?php echo $row_alunos["id"]; ?>)" >
+                        <a href="#" onclick="alterar_aluno(<?php echo $row_alunos["id_aluno"]; ?>)" >
                         <button >Alterar</button></a>
-                        <a href="#" onclick="cad_endereco(<?php echo $row_alunos["id"]; ?>)" >
+                        <a href="#" onclick="cad_endereco(<?php echo $row_alunos["id_aluno"]; ?>)" >
                         <button >Cadastrar Endereço</button></a>
                 </td>
             </tr>

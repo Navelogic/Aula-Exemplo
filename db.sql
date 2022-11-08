@@ -78,6 +78,9 @@ create table usuarios(
 insert into usuarios values
 (1,'adm','adm@adm.com',md5('1'),'00000','2');
 
+insert into usuarios values
+(2,'Professor','prof@prof.com',md5('1'),'00222','3');
+
 create table alunos(
         id_aluno int primary key auto_increment,
         nome varchar(40) not null,

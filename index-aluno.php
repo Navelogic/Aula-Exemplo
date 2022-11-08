@@ -3,14 +3,14 @@ session_start();
  // Executa a conexao com o mysql e selecionar a base
  include_once 'conect.cfg';
 
-if ($_SESSION["perfil"] != 1) {
+if (!$_SESSION["id_aluno"]) {
 echo "<script>alert ('Permissao Invalida no Arquivo!'); location.href='index.php';</script>"; 
 }
 ?>
 
 <html>
     <head>
-    <title>Coordenador</title>
+    <title>Alunos</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <!-- Adicionando Javascript -->
@@ -88,8 +88,6 @@ $resultado = mysqli_query($con, $sql);
 if (mysqli_num_rows($resultado) > 0) {
 
 ?>
-
-
     <br><br>
     <table>
         <tr>
@@ -98,7 +96,6 @@ if (mysqli_num_rows($resultado) > 0) {
             <th>Perfil</th>
 
         </tr>
-        
         <?php
         // Enquanto encontrar uma linha no banco recarrega o conteúdo.
         while ($row = mysqli_fetch_array($resultado)) {
@@ -106,14 +103,29 @@ if (mysqli_num_rows($resultado) > 0) {
             <tr>
                 <td><?php echo $row["nome"]; ?></td>
                 <td><?php echo $row["email"]; ?></td>
-                
+                <?php
+                // Verifica o perfil do usuario 0 Aluno, 1 Professor e 2 Coordenador e sera passado para variavel $p o valor correspondente
+                switch ($row["perfil"]) {
+                    case 2:
+                        $p = "Coordenador";
+                        break;
+                    case 1:
+                        $p = "Professor";
+                        break;
+                    case 0:
+                        $p = "Aluno";
+                        break;
+                }
+                ?>
 
+                <td><?php echo $p; ?></td>
+                <td>
                 <td>
                     <!-- Passa o id do usuário para a função javascript excluir-->
-                    <a href="#" " onclick="excluir(<?php echo $row["id_aluno"]; ?>)">
+                    <a href="#" " onclick="excluir(<?php echo $row["id"]; ?>)">
                         <button style="background-color: red;" >Excluir</button></a>
 
-                        <a href="#" onclick="alterar(<?php echo $row["id_aluno"]; ?>)">
+                        <a href="#" onclick="alterar(<?php echo $row["id"]; ?>)">
                         <button >Alterar</button></a>
                 </td>
             </tr>

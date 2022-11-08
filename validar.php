@@ -1,7 +1,7 @@
     <?php
     // Executa a conexao com o mysql e selecionar a base
     include_once 'conect.cfg';
-
+    
     session_start(); //faz o arquivo iniciar a sessao com o browser
 
     // pega dados via POST
@@ -24,14 +24,14 @@
     $res_alunos = mysqli_query($con, $sql_alunos);
 
     if (mysqli_num_rows($res_usuarios) == 1) {
-// Variavel $row recebe o conteudo do array gerado pelo banco
+    // Variavel $row recebe o conteudo do array gerado pelo banco
 $row = mysqli_fetch_array($res_usuarios);
-
-        session_start(); //faz o arquivo iniciar a sessao com o browser
-        $_SESSION["email"] = $row["email"];
+        
         $_SESSION["id"] = $row["id"];
-        $_SESSION["perfil"] = $row["perfil"];
+        $_SESSION["nome"] = $row["nome"];
+        $_SESSION["email"] = $row["email"];    
         $_SESSION["cpf"] = $row["cpf"];      
+        $_SESSION["perfil"] = $row["perfil"];
        
         //econtrou
         //vou redirecionar o usuario para a pasta do sistema
@@ -49,13 +49,14 @@ $row = mysqli_fetch_array($res_usuarios);
         $row = mysqli_fetch_array($res_alunos);
         
                 session_start(); //faz o arquivo iniciar a sessao com o browser
-                $_SESSION["email"] = $row["email"];
-                $_SESSION["id"] = $row["id"];
+                $_SESSION["id_aluno"] = $row["id_aluno"];
+                $_SESSION["nome"] = $row["nome"];
+                $_SESSION["email"] = $row["email"];                
                 $_SESSION["cpf"] = $row["cpf"];      
                
                 //econtrou
                 //vou redirecionar o usuario para a pasta do sistema
-                header('Location: index-alunos.php');
+                header('Location: index-aluno.php');
         
             }    
     
