@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/scripts.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <form action="cad_end.php" method="post"></form>
+    <fieldset class="mt-4 border p-2">
+        <legend class="font-small"><i class="fas fa-address-card"></i>Cadastrar Endereco do Usuario:</legend>                         
+        <div class="form-group row">
+    <div class="column" >
+        <h2>Endereco</h2>
+            <label class="">Cep:
+            <input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
+                   onblur="pesquisacep(this.value);" /></label><br />
+            <label>Rua:
+            <input name="rua" type="text" id="rua" size="60" /></label><br />
+            <label>Bairro:
+            <input name="bairro" type="text" id="bairro" size="40" /></label><br />
+            <label>Cidade:
+            <input name="cidade" type="text" id="cidade" size="40" /></label><br />
+            <label>Estado:
+            <input name="uf" type="text" id="uf" size="2" /></label><br />
+            <label>IBGE:
+            <input name="ibge" type="text" id="ibge" size="8" /></label><br />
+
+            </div>
+            </form>
+</body>
+</html>
