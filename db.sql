@@ -116,3 +116,21 @@ create table disciplinas(
 ALTER TABLE avaliacoes
 ADD CONSTRAINT id_disciplina 
 FOREIGN KEY (id_disciplina ) REFERENCES disciplinas(id_disciplina );
+
+create table enderecos(
+        id_endereco int primary key auto_increment,
+        id_aluno int not null,            	
+        cep varchar(10) not null,
+        rua varchar(40) not null,
+        numero int,
+        complemento varchar(20),
+        bairro varchar(40) not null,
+        cidade varchar(40) not null,
+        uf varchar(2) not null,
+        ibge int not null
+
+);
+
+ALTER TABLE enderecos
+ADD CONSTRAINT id_aluno 
+FOREIGN KEY (id_aluno ) REFERENCES alunos(id_aluno );

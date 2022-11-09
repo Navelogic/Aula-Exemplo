@@ -23,6 +23,16 @@ $sql = "insert into alunos values (null,'$nome','$email','$cpf','$senha')";
 if (mysqli_query($con, $sql)){
     // Caso a conexao esteja correta cria o retorno do cadastro
     $msg = "Cadastrado com sucesso!";
+
+    //Recupera o Ultimo ID inserido no Banco
+    if ($con->query($sql) === TRUE) {
+        $last_id = $con->insert_id;
+        $id_aluno = $last_id;
+// Cadastro do Ederedereco
+
+        $sql = "insert into endereco values (null,'$id_aluno','$email','$cpf','$senha')";
+      }
+
 }else{    
     // Caso a conexao nao seja realizada cria o retorno do cadastro com erro
     $msg = "Erro ao Cadastrar";
