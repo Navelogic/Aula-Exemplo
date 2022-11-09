@@ -95,8 +95,8 @@ insert into alunos values
 create table avaliacoes(
         id_notas int primary key auto_increment,
     	id_aluno int not null,
-        disciplina varchar(40) unique not null,
-        nota double not null,
+        id_disciplina int not null,
+        nota double not null
 
 );
 insert into avaliacoes values
@@ -106,3 +106,13 @@ insert into avaliacoes values
 ALTER TABLE avaliacoes
 ADD CONSTRAINT id_aluno
 FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno);
+
+create table disciplinas(
+        id_disciplina int primary key auto_increment,    	
+        disciplina varchar(40) unique not null
+
+);
+
+ALTER TABLE avaliacoes
+ADD CONSTRAINT id_disciplina 
+FOREIGN KEY (id_disciplina ) REFERENCES disciplinas(id_disciplina );
