@@ -1,131 +1,159 @@
-<?php 
+<?php
 session_start();
- // Executa a conexao com o mysql e selecionar a base
- include_once 'conect.cfg';
+// Executa a conexao com o mysql e selecionar a base
+INCLUDE 'conect.cfg';
 
 if ($_SESSION["perfil"] != 1) {
-echo "<script>alert ('Permissao Invalida no Arquivo!'); location.href='index.php';</script>"; 
+  echo "<script>alert ('Permissao Invalida no Arquivo!'); location.href='index.php';</script>";
+}
+
+$sql_alunos = "SELECT * FROM alunos";
+$result_alunos = mysqli_query($con,$sql_alunos); 
+if(mysqli_num_rows($result_alunos) > 0){
+
+
+?>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:ntd-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+    </head>
+    <body>
+    
+    <h2>Alunos</h2>
+    
+    <table>
+        <tbody>
+      <tr>
+        <td>Matrícula</td>
+        <td>Nome</td>
+        <td>Status<td>
+      </tr>
+      
+        <?php foreach($result_alunos as $row_aluno): ?>
+            <tr>
+        <td><?= $row_aluno['id_aluno']?></td>
+        <td><?= $row_aluno['nome']?></td>
+        <td>A</td>
+        <td >
+        <button onclick="document.getElementById('in<?= $row_aluno['id_aluno']; ?>').style.display='block'"  class="w3-button w3-black">Inserir Nota</button>    
+        
+        <button onclick="document.getElementById('vn<?= $row_aluno['id_aluno']; ?>').style.display='block'" class="w3-button w3-black">Visualizar Nota</button>
+        </td>
+        
+        </tr>
+
+<!-- Modal Inserir Nota-->
+    <div id="in<?= $row_aluno['id_aluno']; ?>" class="w3-modal">
+    <div class="w3-modal-content">
+    <div class="text-center"><p><b><?= $row_aluno['nome']; ?></b></p></div>
+      <div class="w3-container">
+        <span onclick="document.getElementById('in<?= $row_aluno['id_aluno']; ?>').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+<div class="container-fluid">
+    <form action="cad-avaliacao.php" method="post">
+  <h1>
+  <input name="id_aluno" value="<?= $row_aluno['id_aluno']; ?>" hidden="true" >
+
+ <?php  $sql_disc = "select * from  disciplinas";
+    $res_disc = mysqli_query($con, $sql_disc);
+    if (mysqli_num_rows($res_disc) > 0) {
+        ?>
+
+<select class="form-select" id="sel1" name="id_disciplina">
+    <?php foreach($res_disc as $row_disc): ?>
+      <option><?= $row_disc['disciplina'] ?></option>
+      <?php endforeach;
+    }
+      ?>
+    </select>
+
+  </h1>
+  <div class="row row-no-gutters">
+    <div class="col-sm-2" >Nota</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2" >
+        <input type="text" name="nota" class="form-control">       
+    
+</div>
+  </div>
+  <div class="row row-no-gutters">
+    <div class="col-sm-2" >Período</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2" >
+    <select class="form-select" id="sel1" name="sellist1">
+      <option value="1-<?=">1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+    </select>      
+    
+</div>
+  </div>
+
+  <p>
+  <div class="row text-center">
+  <button>ATUALIZAR</button>
+        </div>
+        </p>
+        </form>
+</div>
+     <br/>   
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Final Modal Inserir Nota -->
+
+<!-- Modal Visualizar Nota-->
+<div id="vn<?= $row_aluno['id_aluno']; ?>" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+      <div class="text-center"><p><b><?= $row_aluno['nome']; ?></b></p></div>
+        <span onclick="document.getElementById('vn<?= $row_aluno['id_aluno']; ?>').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <p>Visualizar Nota.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Final Modal Visualizar Nota -->
+
+<?php 
+endforeach; 
 }
 ?>
 
-<html>
-    <head>
-    <title>Coordenador</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-    <!-- Adicionando Javascript -->
-    <script src="js/scripts.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-<!-- Funcao excluir pelo javascript -->
-<script>
-    // Passa o id do usuário para a exclusão através da função javascript excluir
-    function excluir(id) {
-        if (confirm('deseja realmente excluir este Usuário ?')) {
-            location.href = 'excluir.php?id=' + id;
-            // irá para a lógica de excluir Aluno
-        } // fecha o if
-
-    } // termina a função excluir
-</script>
-    <body>
-    <!-- Inicio do formulario -->
-    <center>
-    <div >
-        <a href="logout.php">Sair</a>
-      <form action="cad_usuario.php" method="post">
-        
-        <fieldset class="mt-4 border p-2">
-            <legend class="font-small"><i class="fas fa-address-card"></i>Cadastrar &nbsp;Usuario:</legend>                         
-            <div class="form-group row">
-           <div class="column">
-                <div class="col-3">          
-                     <label id="label_cpf" >Nome</label>
-                     <input type="text" class="form-control " name='nome' >
-                 </div>
-                </div>
-                <div class="column">      
-                    <label id="label_cpf" >E-mail</label>
-                    <input type="text" class="form-control "  name='email' >                     
-                  </div>
-                  
-                  <div class="column">      
-                    <label id="label_cpf" >Senha</label>
-                    <input type="text" class="form-control "  name='senha' >                     
-                  </div>
-
-                  <div class="column">      
-                    <label id="label_cpf" >CPF</label>
-                    <input type="text" class="form-control "  name='cpf' >                     
-                  </div>
-
-                  <div class="column"> 
-                    <label id="label_cpf" >Perfil</label>
-                  <select name="perfil" class="form-control ">
-                    <option value="0" selected="selected">Aluno</option> 
-                    <option value="1">Professor</option>
-                    <option value="2">Coordenador</option>
-                    </select>
-                    </div>
-                  
-                 </div>
-              
-             </div> 
-            </fieldset>
-        
-<button Type="submit">CADASTRAR</button>
-
-      </form>
-    </div>
-    </div>
-<?php
-    $sql = "select * from  alunos";
-
-//Faz a conexao e executa a instrucao carregada na varivael $sql e os envia para o banco mysql.
-$resultado = mysqli_query($con, $sql);
-
-// Verifica Se existe algum registro
-if (mysqli_num_rows($resultado) > 0) {
-
-?>
-
-
-    <br><br>
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Perfil</th>
-
-        </tr>
-        
-        <?php
-        // Enquanto encontrar uma linha no banco recarrega o conteúdo.
-        while ($row = mysqli_fetch_array($resultado)) {
-        ?>
-            <tr>
-                <td><?php echo $row["nome"]; ?></td>
-                <td><?php echo $row["email"]; ?></td>
-                
-
-                <td>
-                    <!-- Passa o id do usuário para a função javascript excluir-->
-                    <a href="#" " onclick="excluir(<?php echo $row["id_aluno"]; ?>)">
-                        <button style="background-color: red;" >Excluir</button></a>
-
-                        <a href="#" onclick="alterar(<?php echo $row["id_aluno"]; ?>)">
-                        <button >Alterar</button></a>
-                </td>
-            </tr>
-        <?php
-        }
-        
-        ?>
+        </tbody>
+      
     </table>
-    <?php
-            } 
-    ?>
     </body>
-
-    </html>
-    
+</html>

@@ -1,0 +1,1 @@
+$senha = PASSWORD_HASH($_POST["senha"], PASSWORD_DEFAULT);

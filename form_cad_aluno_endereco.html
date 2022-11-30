@@ -1,0 +1,86 @@
+<html>
+    <head>
+    <title>Coordenador</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Adicionando Javascript -->
+    <script src="js/scripts.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+<!-- Funcao excluir pelo javascript -->
+<script>
+    // Passa o id do usuário para a exclusão através da função javascript excluir
+    function excluir(id) {
+        if (confirm('deseja realmente excluir este Usuário ?')) {
+            location.href = 'excluir.php?id=' + id;
+            // irá para a lógica de excluir Aluno
+        } // fecha o if
+
+    } // termina a função excluir
+</script>
+    <body>
+    <!-- Inicio do formulario -->
+    <center>
+    <div >       
+      <form action="cad-aluno.php" method="post">
+        
+        <fieldset class="mt-4 border p-2">
+            <legend class="font-small"><i class="fas fa-address-card"></i>Cadastrar &nbsp;Aluno:</legend>                         
+            <div class="form-group row">
+           <div class="column">
+                <div class="col-3">          
+                     <label id="label_cpf" >Nome</label>
+                     <input type="text" class="form-control " name='nome' >
+                 </div>
+                </div>
+                <div class="column">      
+                    <label id="label_cpf" >E-mail</label>
+                    <input type="text" class="form-control "  name='email' >                     
+                  </div>
+                  
+                  <div class="column">      
+                    <label id="label_cpf" >Senha</label>
+                    <input type="password" class="form-control "  name='senha' >                     
+                  </div>
+
+                  <div class="column">      
+                    <label id="label_cpf" >CPF</label>
+                    <input type="text" class="form-control "  name='cpf' maxlength="15" >                     
+                  </div>
+
+                 </div>
+              
+             </div> 
+            </fieldset>
+
+            <fieldset class="mt-4 border p-2">
+              <legend class="font-small"><i class="fas fa-address-card"></i>Endereço:</legend>
+              <label>CEP:</label>
+              <input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
+              onblur="pesquisacep(this.value);" /></label><br />
+       <label>Rua:
+       <input name="rua" type="text" id="rua" size="60" /></label><br />
+       <label>Número:
+        <input name="numero" type="text" id="numero" size="60" /></label><br />
+        <label>Complemento:
+          <input name="complemento" type="text" id="complemento" size="60" /></label><br />
+       <label>Bairro:
+       <input name="bairro" type="text" id="bairro" size="40" /></label><br />
+       <label>Cidade:
+       <input name="cidade" type="text" id="cidade" size="40" /></label><br />
+       <label>Estado:
+       <input name="uf" type="text" id="uf" size="2" /></label><br />
+       <label>IBGE:
+       <input name="ibge" type="text" id="ibge" size="8" /></label><br />
+              </fieldset>
+        
+<button Type="submit">CADASTRAR</button>
+
+      </form>
+    </div>
+    </div>
+
+    </body>
+
+    </html>
+    

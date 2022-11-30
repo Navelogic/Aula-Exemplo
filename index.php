@@ -26,7 +26,7 @@
   </div>
 
 </form>
-<a href="cad-aluno.html">Nao tem Login Cadastra-se!</a>
+<a href="form_cad_aluno_endereco.html">Nao tem Login Cadastra-se!</a>
 </div>
 </body>
 </html>
